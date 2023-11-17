@@ -88,7 +88,7 @@ render() {
         )}
         {isLoading && <Loader />}
         {images.length > 0 && totalPages !== currentPage && !isLoading && (
-          <Button onClick={this.loadMore} /> // Кнопка для загрузки дополнительных изображений
+          <Button onClick={this.loadMore} /> 
         )}
       </div>
     );
