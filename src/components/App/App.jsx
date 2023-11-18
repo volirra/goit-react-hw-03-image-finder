@@ -9,12 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
-    searchName: '',
     images: [],
-    currentPage: 1,
+    page: 1,
     error: null,
     isLoading: false,
-    totalPages: 0,
   };
 
 componentDidUpdate(_, prevState) {
@@ -83,8 +81,7 @@ render() {
               fontSize: 30,
             }}
           >
-            Image gallery is empty... 📷
-          </p>
+           </p>
         )}
         {isLoading && <Loader />}
         {images.length > 0 && totalPages !== currentPage && !isLoading && (
