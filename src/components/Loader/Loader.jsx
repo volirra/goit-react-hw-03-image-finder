@@ -1,19 +1,17 @@
-import { ColorRing } from 'react-loader-spinner';
-import { LodeWrapper } from './Loader.styled';
+import { LoaderContainer } from './Loader.styled';
+import { RotatingLines } from 'react-loader-spinner';
 
 const Loader = () => {
   return (
-    <LodeWrapper>
-      <ColorRing
+    <LoaderContainer>
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="96"
         visible={true}
-        height="80"
-        width="80"
-        ariaLabel="blocks-loading"
-        wrapperStyle={{}}
-        wrapperClass="blocks-wrapper"
-        colors={['#f8d703', '#cc06f4', '#f8d703', '#06d0f3', '#f8d703']}
       />
-    </LodeWrapper>
+    </LoaderContainer>
   );
 };
 

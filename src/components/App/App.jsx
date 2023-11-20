@@ -1,95 +1,74 @@
-import { Component } from 'react';
-import { imagesAPI } from 'api';
-import SearchBar from '../SearchBar/SearchBar';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import Loader from '../Loader/Loader';
-import Button from '../Button/Button';
-import { ToastContainer, toast, Slide } from 'react-toastify';
+import React, { Component } from 'react';
+import Searchbar from './Searchbar';
+import ImageGallery from './ImageGallery';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MainApp } from './App.styled';
+import Loader from './Loader';
+import axios from 'axios';
 
 class App extends Component {
   state = {
     images: [],
+    error: '',
     page: 1,
-    error: null,
+    imgSearch: '',
     isLoading: false,
   };
 
-componentDidUpdate(_, prevState) {
-   if (prevState.searchName !== this.state.searchName ||
-      prevState.currentPage !== this.state.currentPage
-    ) {
-    this.addImages(); 
-    }
-  }
-
-loadMore = () => {
-    this.setState(prevState => ({
-      currentPage: prevState.currentPage + 1,
-    }));
-  };
-
-handleSubmit = query => {
+  searchFormSubmit = imgSearch => {
     this.setState({
-      searchName: query, 
+      imgSearch,
       images: [],
-      currentPage: 1, 
+      page: 1,
+      error: '',
     });
   };
-addImages = async () => {
-    const { searchName, currentPage } = this.state;
-    try {
-      this.setState({ isLoading: true });
-
-const data = await API.getImages(searchName, currentPage);
-
-      if (data.hits.length === 0) {
-       return toast.info('Sorry image not found...', {
-          position: toast.POSITION.TOP_RIGHT,
-    });
+  
+  async componentDidUpdate(_, prevState) {
+    if (
+      prevState.imgSearch !== this.state.imgSearch ||
+      prevState.page !== this.state.page
+    ) {
+    if (response.totalHits === 0) {
+          return toast.error('Sorry, didn`t find, try again');
+        }
+    if (response.data.hits.length) {
+          return this.setState(prevState => ({
+            images: [...prevState.images, ...response.data.hits],
+          }));
+        } else {
+          return toast.error('Sorry, there are no images .');
+        }
+      } catch (error) {
+        this.setState({ error });
+      } finally {
+        this.setState({ isLoading: false });
       }
-
-const normalizedImages = API.normalizedImages(data.hits);
-
-    this.setState(state => ({
-      images: [...state.images, ...normalizedImages],
-      isLoading: false,
-      error: '', 
-      totalPages: Math.ceil(data.totalHits / 12),
+    }
+  
+  loadMore = event => {
+    event.preventDefault();
+    this.setState(pr => ({
+      page: pr.page + 1,
     }));
-  } catch (error) {
-      this.setState({ error: 'Something went wrong!' });
-       } finally {
-      this.setState({ isLoading: false }); 
-   }
   };
-    
-render() {
-    const { images, isLoading, currentPage, totalPages } = this.state;
 
+  render() {
+    const { images, isLoading, error } = this.state;
     return (
-      <div>
-        <ToastContainer transition={Slide} />
-        <SearchBar onSubmit={this.handleSubmit} />
-        {images.length > 0 ? (
-          <ImageGallery images={images} />
-        ) : (
-          <p
-            style={{
-              padding: 100,
-              textAlign: 'center',
-              fontSize: 30,
-            }}
-          >
-           </p>
-        )}
-        {isLoading && <Loader />}
-        {images.length > 0 && totalPages !== currentPage && !isLoading && (
-          <Button onClick={this.loadMore} /> 
-        )}
-      </div>
+      <>
+        <Searchbar onSearch={this.searchFormSubmit} />
+        <MainApp>
+          {isLoading && <Loader />}
+          {error && <p>{error}</p>}
+          {images.length !== 0 && (
+            <ImageGallery images={images} onLoadMore={this.loadMore} />
+          )}
+          <ToastContainer autoClose={3000} />
+        </MainApp>
+      </>
     );
   }
 }
-
 export default App;

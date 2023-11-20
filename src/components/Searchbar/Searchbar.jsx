@@ -1,61 +1,59 @@
-import { Component } from 'react';
-import { BsSearch } from 'react-icons/bs';
+import React, { Component } from 'react';
+import { ImSearch } from 'react-icons/im';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import {
+  SearchbarHeader,
   SearchForm,
-  SearchInput,
-  SearchButton,
-  SearchSpan,
-  SearchLogo,
-} from './SearchBar.styled';
+  SearchFormButton,
+  SearchFormInput,
+} from './Searchbar.styled';
 
-class SearchBar extends Component {
+class Searchbar extends Component {
   state = {
-    searchName: '', 
-    inputValue: '',
+    searchImgName: '',
+  };
+  static propTypes = {
+    searchImgName: PropTypes.string,
+    searchValueChange: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    onSearch: PropTypes.func,
   };
 
-  handleChange = event => {
-    this.setState({ inputValue: event.target.value });
+  searchValueChange = event => {
+    this.setState({ searchImgName: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
-    event.preventDefault(); 
-    const searchQuery = event.target.elements.searchName.value.trim(); 
-    this.props.onSubmit(searchQuery); 
-    event.target.reset(); 
+    event.preventDefault();
+    if (this.state.searchImgName.trim() === '') {
+      return toast.error('Write name for search');
+    }
+    this.props.onSearch(this.state.searchImgName);
+    this.setState({ searchImgName: '' });
   };
 
   render() {
+    const { searchImgName } = this.state;
     return (
-      <header>
+      <SearchbarHeader>
         <SearchForm onSubmit={this.handleSubmit}>
-          <a href="https://pixabay.com/" target="_blank" rel="noreferrer">
-            <SearchLogo
-              src={require('./pixabay-logo.png')} 
-              alt="logo"
-              width="200"
-            />
-          </a>
-          <SearchButton>
-            <BsSearch />
-            <SearchSpan>Search</SearchSpan>
-          </SearchButton>
-          <SearchInput
-            name="searchName"
+          <SearchFormInput
             type="text"
-            id="search"
-            value={this.state.inputValue}
-            onChange={this.handleChange}
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images "
+            onChange={this.searchValueChange}
+            value={searchImgName}
+            name="searchImgName"
           />
+          <SearchFormButton type="submit">
+            <ImSearch />
+          </SearchFormButton>
         </SearchForm>
-      </header>
+      </SearchbarHeader>
     );
   }
 }
 
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default SearchBar;
+export default Searchbar;
