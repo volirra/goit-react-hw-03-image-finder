@@ -18,7 +18,7 @@ class App extends Component {
     page: 1,
     totalImages: 0,
     status: 'idle',
-    notification: { type: '', message: '' }, // type: error, info, success
+    notification: { type: '', message: '' }, 
   };
 
   componentDidUpdate(_, prevState) {
