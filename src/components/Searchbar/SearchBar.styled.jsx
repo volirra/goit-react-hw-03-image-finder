@@ -1,39 +1,17 @@
 import styled from '@emotion/styled';
+import { Form, Field } from 'formik';
 
-export const SearchbarHeader = styled.header`
-  top: 0;
-  left: 0;
-  position: sticky;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 64px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  color: #fff;
-  background-color: #3f51b5;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-`;
-
-export const SearchForm = styled.form`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
-  background-color: #fff;
-  border-radius: 3px;
-  overflow: hidden;
-`;
-export const SearchFormButton = styled.button`
+export const SearchButton = styled.button`
   display: inline-block;
-  width: 48px;
+  width: 52px;
   height: 48px;
   border: 0;
+  border-radius: ${({ theme }) => {
+    return theme.borderRadius;
+  }};
+  background-color: ${({ theme }) => {
+    return theme.colors.searchButtonBackgroundColor;
+  }};
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -45,17 +23,57 @@ export const SearchFormButton = styled.button`
     opacity: 1;
   }
 `;
-export const SearchFormInput = styled.input`
+
+export const StyledForm = styled(Form)`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: ${({ theme }) => {
+    return theme.colors.backgroundColor;
+  }};
+  border-radius: ${({ theme }) => {
+    return theme.borderRadius;
+  }};
+  overflow: hidden;
+`;
+
+export const Input = styled(Field)`
   display: inline-block;
   width: 100%;
   font: inherit;
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
+  padding-left: 14px;
   padding-right: 4px;
   &::placeholder {
     font: inherit;
-    font-size: 18px;
+    font-size: ${({ theme }) => {
+      return theme.fontStyles.size;
+    }};
   }
+`;
+export const StyledSearchbar = styled.header`
+  top: 0;
+  left: 0;
+  position: sticky;
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 74px;
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: ${({ theme }) => {
+    return theme.colors.backgroundColor;
+  }};
+  background-color: ${({ theme }) => {
+    return theme.colors.mainColor;
+  }};
+  box-shadow: ${({ theme }) => {
+    return theme.boxShadow;
+  }};
 `;

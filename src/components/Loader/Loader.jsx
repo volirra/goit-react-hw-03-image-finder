@@ -1,17 +1,12 @@
-import { LoaderContainer } from './Loader.styled';
-import { RotatingLines } from 'react-loader-spinner';
+import { TailSpin } from 'react-loader-spinner';
+
+import { StyledLoader } from './Loader.styled';
 
 const Loader = () => {
   return (
-    <LoaderContainer>
-      <RotatingLines
-        strokeColor="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        width="96"
-        visible={true}
-      />
-    </LoaderContainer>
+    <StyledLoader>
+      <TailSpin color="#0e7545" />
+    </StyledLoader>
   );
 };
 

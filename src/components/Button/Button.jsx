@@ -1,15 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonLoad } from './Button.styled';
-const Button = ({ onClick }) => {
-  return (
-    <div>
-      <ButtonLoad type="button" onClick={onClick}>
-        Load more
-      </ButtonLoad>
-    </div>
-  );
-};
+import { StyledButton } from './ButtonLoadMore.styled';
+
+const Button = ({ onClick }) => (
+  <StyledButton type="button" onClick={onClick}>
+    Load More
+  </StyledButton>
+);
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,

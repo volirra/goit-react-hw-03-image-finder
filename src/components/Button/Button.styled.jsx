@@ -1,23 +1,43 @@
 import styled from '@emotion/styled';
 
-export const ButtonLoad = styled.button`
-  width: 160px;
-  height: 40px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
+export const StyledButton = styled.button`
+  margin: 0 auto;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: ${({ theme }) => {
+    return theme.colors.mainColor;
+  }};
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  display: inline-block;
+  color: #646464;
+  border: 0;
+  text-decoration: none;
   cursor: pointer;
-  color: black;
-  background-color: gainsboro;
-
+  font-family: inherit;
+  font-size: ${({ theme }) => {
+    return theme.fontStyles.size;
+  }};
+  line-height: ${({ theme }) => {
+    return theme.fontStyles.lineHeight;
+  }};
+  font-style: ${({ theme }) => {
+    return theme.fontStyles.fontStyle;
+  }};
+  font-weight: ${({ theme }) => {
+    return theme.fontStyles.fontWeight;
+  }};
+  min-width: 180px;
+  box-shadow: ${({ theme }) => {
+    return theme.boxShadow;
+  }};
   &:hover,
   &:focus {
-    color: black;
-    background-color: rgba(255, 255, 126, 1);
+    background-color: ${({ theme }) => {
+      return theme.colors.accentColor;
+    }};
+    color: ${({ theme }) => {
+      return theme.colors.backgroundColor;
+    }};
   }
 `;
