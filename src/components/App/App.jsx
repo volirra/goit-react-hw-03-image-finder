@@ -37,13 +37,7 @@ class App extends Component {
           return this.setState(prevState => ({
             images: [...prevState.images, ...response.data.hits],
           }));
-        } else {
-          return toast.error('Sorry, there are no images .');
-        }
-      } catch (error) {
-        this.setState({ error });
-      } finally {
-        this.setState({ isLoading: false });
+        
       }
     }
   
